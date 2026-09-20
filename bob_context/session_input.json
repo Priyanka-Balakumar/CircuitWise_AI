@@ -1,0 +1,34 @@
+{
+  "_comment": "CircuitWise AI — ESP32 + DHT22 Demo Session Input. Current values sourced from CircuitWise_AI_Component_Power_Dataset.xlsx (Official datasheet / Reputable product documentation). Edit this file to change the session scenario.",
+  "session_name": "ESP32 + DHT22 Environmental Monitor — 60-minute analysis",
+  "system_voltage_v": 3.3,
+  "analysis_period_min": 60,
+  "components": [
+    {
+      "name": "ESP32",
+      "component_id": "MCU-ESP32",
+      "source": "Espressif official datasheet",
+      "active_current_ma": 23.88,
+      "sleep_current_ma": 0.00814,
+      "peak_current_ma": 240.0,
+      "active_duration_min": 10,
+      "sleep_duration_min": 48,
+      "peak_duration_min": 2,
+      "minimum_active_duration_min": 5,
+      "_note_active": "Active = Wi-Fi/sensor polling. Sleep = deep-sleep. Peak = Wi-Fi TX burst."
+    },
+    {
+      "name": "DHT22 / AM2302",
+      "component_id": "SNS-DHT22",
+      "source": "Adafruit / AM2302 product documentation",
+      "active_current_ma": 2.5,
+      "sleep_current_ma": null,
+      "peak_current_ma": 2.5,
+      "active_duration_min": 60,
+      "sleep_duration_min": 0,
+      "peak_duration_min": 0,
+      "minimum_active_duration_min": 60,
+      "_note_sleep": "DHT22 has no documented sleep mode in this dataset. Operates continuously. sleep_current_ma is null (not zero) — null means no datasheet value, not a measured zero."
+    }
+  ]
+}

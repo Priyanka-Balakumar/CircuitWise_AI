@@ -1,0 +1,899 @@
+{
+  "export_timestamp": "2026-09-20T07:24:48.039556+00:00",
+  "project": "CircuitWise AI V4.4",
+  "data_status": {
+    "dataset": "synthetic/calculated — generated from datasheet values using P=VxI, E=Pxt; NOT validated against physical hardware",
+    "model": "RandomForestRegressor(n_estimators=200, random_state=42) trained on V4.4 synthetic dataset",
+    "hardware_validation": "pending — ESP32 + INA219 physical measurement planned as future work"
+  },
+  "engineering_calculation": {
+    "session_name": "ESP32 + DHT22 Environmental Monitor — 60-minute analysis",
+    "system_voltage_v": 3.3,
+    "analysis_period_min": 60.0,
+    "component_count": 2,
+    "system_total_energy_mwh": 47.80549,
+    "calculation_method": "P = V x I_mA (mW);  E = P x (duration_min / 60) (mWh)",
+    "components": [
+      {
+        "name": "ESP32",
+        "component_id": "MCU-ESP32",
+        "source": "Espressif official datasheet",
+        "available_modes": [
+          "active",
+          "sleep",
+          "peak"
+        ],
+        "total_energy_mwh": 39.55549,
+        "total_charge_mah": 11.986512,
+        "mode_detail": {
+          "active": {
+            "current_ma": 23.88,
+            "duration_min": 10.0,
+            "energy_mwh": 13.134
+          },
+          "sleep": {
+            "current_ma": 0.00814,
+            "duration_min": 48.0,
+            "energy_mwh": 0.02149
+          },
+          "peak": {
+            "current_ma": 240.0,
+            "duration_min": 2.0,
+            "energy_mwh": 26.4
+          }
+        }
+      },
+      {
+        "name": "DHT22 / AM2302",
+        "component_id": "SNS-DHT22",
+        "source": "Adafruit / AM2302 product documentation",
+        "available_modes": [
+          "active",
+          "peak"
+        ],
+        "total_energy_mwh": 8.25,
+        "total_charge_mah": 2.5,
+        "mode_detail": {
+          "active": {
+            "current_ma": 2.5,
+            "duration_min": 60.0,
+            "energy_mwh": 8.25
+          },
+          "peak": {
+            "current_ma": 2.5,
+            "duration_min": 0.0,
+            "energy_mwh": 0.0
+          }
+        }
+      }
+    ],
+    "recommendations": [
+      "ESP32: peak current is 240.00 mA. Review peak-load events and power supply capacity.",
+      "DHT22 / AM2302: no defensible sleep current is available in the dataset. Consider reducing active duty cycle if the application allows it.",
+      "DHT22 / AM2302: active for 60.00 minutes. Reducing active duty cycle may reduce energy."
+    ]
+  },
+  "ml_prediction": {
+    "predicted_energy_mwh": 22.417483,
+    "calculated_energy_mwh": 47.80549,
+    "difference_from_calculated_mwh": -25.388007,
+    "difference_percent": 53.1069,
+    "interpretation_band": "significant_deviation",
+    "features_used": [
+      "component_count",
+      "system_voltage_v",
+      "analysis_period_min",
+      "active_duration_min",
+      "sleep_duration_min",
+      "peak_duration_min",
+      "avg_active_current_ma",
+      "avg_sleep_current_ma",
+      "avg_peak_current_ma"
+    ],
+    "feature_values": {
+      "component_count": 2,
+      "system_voltage_v": 3.3,
+      "analysis_period_min": 60.0,
+      "active_duration_min": 35.0,
+      "sleep_duration_min": 24.0,
+      "peak_duration_min": 1.0,
+      "avg_active_current_ma": 5.554286,
+      "avg_sleep_current_ma": 0.00814,
+      "avg_peak_current_ma": 240.0
+    },
+    "model": "RandomForestRegressor(n_estimators=200, random_state=42)",
+    "note": "Prediction is based on a model trained on synthetic/calculated data (V4.4 dataset). It is NOT a hardware measurement. The difference between calculated and predicted reflects model error on synthetic training data — not a measured physical discrepancy."
+  },
+  "anomaly_detection": {
+    "model": "IsolationForest(n_estimators=200, contamination=0.05, random_state=42)",
+    "label_convention": "1 = NORMAL statistical pattern;  -1 = ANOMALY (statistically unusual — does NOT confirm hardware fault)",
+    "total_configurations": 1500,
+    "normal_count": 1425,
+    "anomaly_count": 75,
+    "anomaly_percent": 5.0,
+    "demo_config_match": {
+      "configuration_id": 1471,
+      "components": "ESP32-S3 + BMP280",
+      "component_count": 2,
+      "system_voltage_v": 3.3,
+      "analysis_period_min": 60.0,
+      "calculated_energy_mwh": 134.1067,
+      "anomaly_score": 0.176833,
+      "anomaly_status": "NORMAL",
+      "match_note": "Closest match to demo session (2 component(s), 3.3V, 60.0 min)"
+    },
+    "anomalies": [
+      {
+        "configuration_id": 438,
+        "components": "ESP32-S3",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 3325.8008,
+        "anomaly_score": -0.117429,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1499,
+        "components": "ESP32-S3",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 5617.1386,
+        "anomaly_score": -0.116373,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1290,
+        "components": "ESP32-S3",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1523.4496,
+        "anomaly_score": -0.089173,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 617,
+        "components": "ESP32-S3",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 484.8945,
+        "anomaly_score": -0.088852,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 263,
+        "components": "ESP32",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1533.5324,
+        "anomaly_score": -0.084771,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 439,
+        "components": "ESP32-S3",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 80.7663,
+        "anomaly_score": -0.081956,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1064,
+        "components": "Raspberry Pi Pico + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 265.2488,
+        "anomaly_score": -0.081274,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1153,
+        "components": "ESP32-S3 + Arduino Uno / ATmega328P + BME280 + Raspberry Pi Pico",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.074941,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1285,
+        "components": "BMP280 + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1432.5339,
+        "anomaly_score": -0.064602,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 634,
+        "components": "ESP32-S3 + ESP32",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 172.3164,
+        "anomaly_score": -0.061358,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 60,
+        "components": "DS18B20 + DHT22 / AM2302",
+        "component_count": 2,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": 276.4182,
+        "anomaly_score": -0.060938,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 727,
+        "components": "DHT22 / AM2302",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 198.0,
+        "anomaly_score": -0.059564,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 42,
+        "components": "BMP280",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 0.0402,
+        "anomaly_score": -0.059388,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 967,
+        "components": "DS18B20",
+        "component_count": 1,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": 11.1549,
+        "anomaly_score": -0.058976,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 63,
+        "components": "Raspberry Pi Pico + SSD1306 OLED controller + INA219 + ESP32",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.058763,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 408,
+        "components": "MPU6050 + HC-SR501 + DHT22 / AM2302 + ESP32-S3",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 9209.2086,
+        "anomaly_score": -0.055819,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1393,
+        "components": "DS18B20",
+        "component_count": 1,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": 24.9765,
+        "anomaly_score": -0.051979,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 780,
+        "components": "ESP32",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 71.5399,
+        "anomaly_score": -0.050234,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 894,
+        "components": "ESP32",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 123.5562,
+        "anomaly_score": -0.049423,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1086,
+        "components": "ESP32",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1094.0949,
+        "anomaly_score": -0.048978,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 902,
+        "components": "ESP32 + MPU6050 + ESP32-S3",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 6169.6034,
+        "anomaly_score": -0.046459,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1435,
+        "components": "SSD1306 OLED controller + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 168.0934,
+        "anomaly_score": -0.043852,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 106,
+        "components": "ESP32-S3 + DHT22 / AM2302",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 4111.1081,
+        "anomaly_score": -0.041976,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1213,
+        "components": "HC-SR04 + Raspberry Pi Pico + HC-SR501 + Arduino Uno / ATmega328P",
+        "component_count": 4,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.039097,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1019,
+        "components": "DHT22 / AM2302",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 198.0,
+        "anomaly_score": -0.038887,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 848,
+        "components": "nRF24L01+ + Raspberry Pi Pico + ESP32-S3 + BMP280",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 2182.6777,
+        "anomaly_score": -0.038331,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1391,
+        "components": "HC-05 + HC-SR04 + DS18B20 + Raspberry Pi Pico",
+        "component_count": 4,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": 4679.244,
+        "anomaly_score": -0.035279,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 965,
+        "components": "ESP32-S3 + Raspberry Pi Pico",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 3530.9137,
+        "anomaly_score": -0.033859,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 331,
+        "components": "SSD1306 OLED controller + ESP32-S3 + Raspberry Pi Pico + nRF24L01+",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 131.5366,
+        "anomaly_score": -0.033833,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 493,
+        "components": "ESP32-S3 + ESP32",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 7949.7925,
+        "anomaly_score": -0.033832,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 508,
+        "components": "HC-SR04 + DS18B20 + BMP280 + Raspberry Pi Pico",
+        "component_count": 4,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": 1638.4161,
+        "anomaly_score": -0.032929,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 530,
+        "components": "HC-SR04 + INA219 + ESP32-S3",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.031013,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 179,
+        "components": "ESP32-S3 + Raspberry Pi Pico",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 3774.169,
+        "anomaly_score": -0.030762,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1382,
+        "components": "ESP32-S3 + Arduino Uno / ATmega328P + Raspberry Pi Pico",
+        "component_count": 3,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.030416,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 158,
+        "components": "DS18B20",
+        "component_count": 1,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": 1.3388,
+        "anomaly_score": -0.0303,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1181,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 627,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1140,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 26,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 156,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1348,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 301,
+        "components": "Raspberry Pi Pico",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 102.96,
+        "anomaly_score": -0.027545,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 713,
+        "components": "ESP32-S3 + Raspberry Pi Pico",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 4428.3892,
+        "anomaly_score": -0.027163,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1209,
+        "components": "INA219 + ESP32-S3 + nRF24L01+ + ESP32",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.025758,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1416,
+        "components": "ESP32 + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1617.711,
+        "anomaly_score": -0.024682,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1361,
+        "components": "ESP32 + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1239.1293,
+        "anomaly_score": -0.022959,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 242,
+        "components": "DHT22 / AM2302 + Raspberry Pi Pico + ESP32",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 424.2,
+        "anomaly_score": -0.019844,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 469,
+        "components": "ESP32 + Arduino Uno / ATmega328P + nRF24L01+",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.019388,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 772,
+        "components": "Raspberry Pi Pico + ESP32-S3 + HC-SR501",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 11257.9166,
+        "anomaly_score": -0.017368,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 864,
+        "components": "Raspberry Pi Pico + Arduino Uno / ATmega328P + BMP280",
+        "component_count": 3,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.017345,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 606,
+        "components": "HC-SR501 + ESP32 + SSD1306 OLED controller + ESP32-S3",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 3142.7619,
+        "anomaly_score": -0.016599,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 178,
+        "components": "ESP32",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1545.2141,
+        "anomaly_score": -0.014987,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 869,
+        "components": "BME280 + ESP32-S3 + ESP32 + Arduino Uno / ATmega328P",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.014633,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 441,
+        "components": "ESP32 + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 2149.2834,
+        "anomaly_score": -0.014592,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 119,
+        "components": "HC-SR501 + HC-SR04 + Raspberry Pi Pico",
+        "component_count": 3,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": 4594.9498,
+        "anomaly_score": -0.014357,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 268,
+        "components": "BMP280 + Arduino Uno / ATmega328P",
+        "component_count": 2,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.012979,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 820,
+        "components": "Raspberry Pi Pico + HC-SR501",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 5250.96,
+        "anomaly_score": -0.011571,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 419,
+        "components": "Raspberry Pi Pico + HC-SR501",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 5250.96,
+        "anomaly_score": -0.011571,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 756,
+        "components": "Raspberry Pi Pico + DHT22 / AM2302",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 300.96,
+        "anomaly_score": -0.009855,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1455,
+        "components": "HC-SR501 + BMP280 + BME280 + ESP32-S3",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.009673,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 414,
+        "components": "ESP32-S3 + ESP32",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 3656.2372,
+        "anomaly_score": -0.008948,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1029,
+        "components": "MPU6050 + HC-SR04 + ESP32-S3",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 2970.5632,
+        "anomaly_score": -0.008822,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 674,
+        "components": "ESP32",
+        "component_count": 1,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 73.148,
+        "anomaly_score": -0.0088,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1111,
+        "components": "ESP32-S3 + BME280 + ESP32 + DHT22 / AM2302",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.008566,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 317,
+        "components": "ESP32 + DS18B20 + Arduino Uno / ATmega328P",
+        "component_count": 3,
+        "system_voltage_v": 5.0,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.00818,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1059,
+        "components": "ESP32-S3 + ESP32",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 2836.0368,
+        "anomaly_score": -0.006263,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 563,
+        "components": "nRF24L01+ + DS18B20 + HC-SR501 + Raspberry Pi Pico",
+        "component_count": 4,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": 3591.9111,
+        "anomaly_score": -0.006229,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 454,
+        "components": "nRF24L01+ + INA219",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.006191,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 571,
+        "components": "ESP32-S3 + SSD1306 OLED controller + ESP32 + HC-SR501",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 520.6567,
+        "anomaly_score": -0.005857,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 521,
+        "components": "MPU6050 + ESP32-S3 + Raspberry Pi Pico + Arduino Uno / ATmega328P",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.005288,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1132,
+        "components": "HC-SR501 + ESP32 + BME280 + DHT22 / AM2302",
+        "component_count": 4,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.005172,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 541,
+        "components": "BMP280 + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": 1406.9643,
+        "anomaly_score": -0.004208,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1420,
+        "components": "DS18B20 + ESP32-S3",
+        "component_count": 2,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": 5336.7379,
+        "anomaly_score": -0.004157,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 703,
+        "components": "INA219 + HC-05 + ESP32",
+        "component_count": 3,
+        "system_voltage_v": 3.3,
+        "calculated_energy_mwh": null,
+        "anomaly_score": -0.000739,
+        "anomaly_status": "ANOMALY"
+      },
+      {
+        "configuration_id": 1325,
+        "components": "HC-SR04 + HC-SR501 + SSD1306 OLED controller + Raspberry Pi Pico",
+        "component_count": 4,
+        "system_voltage_v": 4.15,
+        "calculated_energy_mwh": 7846.1068,
+        "anomaly_score": -0.0002,
+        "anomaly_status": "ANOMALY"
+      }
+    ]
+  },
+  "optimization": {
+    "system_current_energy_mwh": 21.406385,
+    "system_optimized_energy_mwh": 14.841623,
+    "system_saving_mwh": 6.564761,
+    "system_reduction_percent": 30.67,
+    "constraint_note": "Minimum active time constraints respected per component. Savings are calculated/simulated estimates, not experimentally measured.",
+    "components": [
+      {
+        "component": "ESP32",
+        "current_energy_mwh": 13.156385,
+        "optimized_energy_mwh": 6.591623,
+        "energy_saving_mwh": 6.564761,
+        "reduction_percent": 49.9,
+        "current_active_time_min": 10.0,
+        "optimized_active_time_min": 5.0,
+        "minimum_active_time_min": 5.0,
+        "constraint_status": "SATISFIED"
+      },
+      {
+        "component": "DHT22 / AM2302",
+        "current_energy_mwh": 8.25,
+        "optimized_energy_mwh": 8.25,
+        "energy_saving_mwh": 0.0,
+        "reduction_percent": 0.0,
+        "current_active_time_min": 60.0,
+        "optimized_active_time_min": 60.0,
+        "minimum_active_time_min": 60.0,
+        "constraint_status": "NO_CHANGE"
+      }
+    ],
+    "top_options": [
+      {
+        "rank": "TOP_OPTION_1",
+        "component": "ESP32",
+        "system_current_energy_mwh": 21.406385,
+        "system_optimized_energy_mwh": 14.841623,
+        "system_saving_mwh": 6.564761,
+        "system_reduction_percent": 30.67,
+        "optimized_active_time_min": 5.0,
+        "minimum_active_time_min": 5.0,
+        "constraint_status": "SATISFIED"
+      },
+      {
+        "rank": "TOP_OPTION_2",
+        "component": "ESP32",
+        "system_current_energy_mwh": 21.406385,
+        "system_optimized_energy_mwh": 15.4981,
+        "system_saving_mwh": 5.908285,
+        "system_reduction_percent": 27.6,
+        "optimized_active_time_min": 5.5,
+        "minimum_active_time_min": 5.0,
+        "constraint_status": "SATISFIED"
+      },
+      {
+        "rank": "TOP_OPTION_3",
+        "component": "ESP32",
+        "system_current_energy_mwh": 21.406385,
+        "system_optimized_energy_mwh": 16.154576,
+        "system_saving_mwh": 5.251809,
+        "system_reduction_percent": 24.53,
+        "optimized_active_time_min": 6.0,
+        "minimum_active_time_min": 5.0,
+        "constraint_status": "SATISFIED"
+      },
+      {
+        "rank": "TOP_OPTION_4",
+        "component": "ESP32",
+        "system_current_energy_mwh": 21.406385,
+        "system_optimized_energy_mwh": 16.811052,
+        "system_saving_mwh": 4.595333,
+        "system_reduction_percent": 21.47,
+        "optimized_active_time_min": 6.5,
+        "minimum_active_time_min": 5.0,
+        "constraint_status": "SATISFIED"
+      },
+      {
+        "rank": "TOP_OPTION_5",
+        "component": "ESP32",
+        "system_current_energy_mwh": 21.406385,
+        "system_optimized_energy_mwh": 17.467528,
+        "system_saving_mwh": 3.938857,
+        "system_reduction_percent": 18.4,
+        "optimized_active_time_min": 7.0,
+        "minimum_active_time_min": 5.0,
+        "constraint_status": "SATISFIED"
+      }
+    ]
+  },
+  "responsible_ai": {
+    "calculated_values_source": "Deterministic formulas: P = V x I_mA (mW);  E = P x (duration_min / 60) (mWh)",
+    "predicted_values_source": "RandomForest ML model trained on synthetic/calculated data",
+    "anomaly_values_source": "IsolationForest trained on synthetic/calculated data — statistical outlier detection only",
+    "optimization_values_source": "Simulated active-time reduction scenarios (5% step increments) — not experimentally measured",
+    "warning": "All values are calculated or simulated using synthetic training data derived from component datasheets. No experimental hardware measurements have been taken. Hardware validation using ESP32 and INA219 is planned. These results must not be used as the sole basis for real system design without validation."
+  },
+  "session_name": "ESP32 + DHT22 Environmental Monitor — 60-minute analysis"
+}

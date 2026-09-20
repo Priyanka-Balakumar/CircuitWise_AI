@@ -781,8 +781,6 @@ CircuitWise-AI/
 │   └── session_input.json
 │
 └── docs/
-    ├── architecture.md
-    ├── methodology.md
     └── responsible_ai.md
 ```
 

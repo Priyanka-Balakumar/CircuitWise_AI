@@ -1320,12 +1320,7 @@ Future architecture:
 
 # 👨‍💻 Author
 
-**[Your Name]**
-
-Electronics & Communication Engineering
-**[Your College Name]**
-
-5th Semester
+**PRIYANKA BALAKUMAR**
 
 Project developed for:
 
